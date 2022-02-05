@@ -12,5 +12,8 @@
 	"rules": {
 		"semi": 2,
 		"space-before-function-paren": 2
+	},
+	"env": {
+		"node": true
 	}
 }

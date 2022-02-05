@@ -1,43 +1,39 @@
 import { FC, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import { useDropzone, FileWithPath } from "react-dropzone";
 
 import {
     Center,
     Icon,
     Text
 } from "@chakra-ui/react";
-import { AiFillFileAdd, AiFillRocket } from "react-icons/ai";
+import { AiOutlineUpload, AiFillRocket } from "react-icons/ai";
 
 interface IProps {
-    onFileAccepted: ((file: File) => void);
-    isError: boolean;
+    onFileAccepted: ((files: FileWithPath[] ) => void);
 }
 
-const ImageDrop: FC<IProps> = ({ onFileAccepted, isError }) => {
-    const onDrop = useCallback((file) => {
-        onFileAccepted(file[0]);
+const ImageDrop: FC<IProps> = ({ onFileAccepted }) => {
+    const onDrop = useCallback((files: FileWithPath[]) => {
+        onFileAccepted(files);
     }, [onFileAccepted]);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        onDrop, maxFiles: 1, multiple: false,
+        onDrop, maxFiles: 2, multiple: true,
     });
 
-    const defaultText = isDragActive
+    const text = isDragActive
         ? "Time to Drop!"
-        : "Click to Select a File or Drop It Here...";
-
-    const errorText = isDragActive
-        ? "Let’s Try That Again!"
-        : "There was an Error. Please ensure the file is either a JPEG or PNG.";
+        : "Select Two Files or Drop Them Here...";
 
     return (
         <Center
             w="100%"
+            h="180px"
             p={10}
             cursor="pointer"
             borderRadius={20}
             border="2px"
-            borderColor={isError ? "red.500" : "gray.400"}
+            borderColor="gray.400"
             bg={isDragActive ? "gray.100" : "transparent"}
             _hover={{ bg: "gray.100" }}
             transition="background-color 0.2s ease"
@@ -47,13 +43,9 @@ const ImageDrop: FC<IProps> = ({ onFileAccepted, isError }) => {
 
             {isDragActive
                 ? <Icon as={AiFillRocket} mr={2} />
-                : <Icon as={AiFillFileAdd} mr={2} />
+                : <Icon as={AiOutlineUpload} mr={2} />
             } 
-
-            {isError
-                ? <Text>{errorText}</Text>
-                : <Text>{defaultText}</Text>
-            }
+            <Text>{text}</Text>
         </Center>
     );
 };

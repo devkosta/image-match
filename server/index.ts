@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 
 app.post("/api/upload", (req: any, res: any, next: any) => {
-	const size = parseInt(req.query.size);
     const form = formidable({ multiples: true });
 
     form.parse(req, (err: any, fields: any, files: any) => {
@@ -20,7 +19,7 @@ app.post("/api/upload", (req: any, res: any, next: any) => {
 
 		const input = files.image.filepath;
 		sharp(input)
-			.resize(size, size)
+			.resize(8, 8)
 			.raw()
 			.grayscale()
 			.toBuffer({ resolveWithObject: true }).then((data: any) => {
