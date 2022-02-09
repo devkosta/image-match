@@ -14,6 +14,7 @@ import {
     IconButton,
     Button,
     Text,
+    Spinner,
     Modal,
     ModalOverlay,
     ModalContent,
@@ -29,9 +30,10 @@ import { AiOutlineClear } from "react-icons/ai";
 const App = () => {
     const [currentFiles, setCurrentFiles] = useState<FileWithPath[]>([]);
     const [hashes, setHashes] = useState<string[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-    
+
     const toast = useToast();
 
     const importFile = (files: FileWithPath[]) => {
@@ -55,7 +57,7 @@ const App = () => {
         setCurrentFiles(currentFiles.concat(files));
     };
 
-    const handleButtonClick = () => {
+    const handleButtonClick = async () => {
         if (currentFiles.length !== 2) {
             toast({
                 description: `Uploaded ${currentFiles.length} files. You must upload 2 files.`,
@@ -72,8 +74,10 @@ const App = () => {
             if (currentFiles[i]) {
                 const formData = new FormData();
                 formData.append("image", currentFiles[i], currentFiles[i].name);
+                
+                setLoading(true);
 
-                axios.post("http://localhost:5000/api/upload", formData)
+                await axios.post("https://devkosta-image-match.herokuapp.com/api/upload", formData)
                     .then((res) => {
                         setHashes(hashes => [...hashes, dataToHash(res.data.data.data)]);
                     })
@@ -83,6 +87,7 @@ const App = () => {
             }
         }
 
+        setLoading(false);
         onOpen();
     };
 
@@ -144,7 +149,7 @@ const App = () => {
                     <IconButton
                         aria-label="Start"
                         colorScheme="blue"
-                        icon={<BsArrowRightShort size={26} />}
+                        icon={loading ? <Spinner /> : <BsArrowRightShort size={26} />}
                         onClick={handleButtonClick}
                     />
                     <IconButton
