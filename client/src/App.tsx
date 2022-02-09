@@ -71,7 +71,7 @@ const App = () => {
                 const formData = new FormData();
                 formData.append("image", currentFiles[i], currentFiles[i].name);
 
-                axios.post("http://localhost:5000/api/upload", formData)
+                axios.post("https://devkosta-image-match.herokuapp.com/api/upload", formData)
                     .then((res) => {
                         setHashes(hashes => [...hashes, dataToHash(res.data.data.data)]);
                     })
