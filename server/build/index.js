@@ -6,6 +6,9 @@ const formidable = require("formidable");
 const sharp = require("sharp");
 const PORT = process.env.PORT || 5000;
 app.use(cors());
+app.get("/", (req, res) => {
+    res.send("Hello, World!");
+});
 app.post("/api/upload", (req, res, next) => {
     const form = formidable({ multiples: true });
     form.parse(req, (err, fields, files) => {

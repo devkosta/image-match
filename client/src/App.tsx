@@ -111,8 +111,7 @@ const App = () => {
 
         return (
             <React.Fragment>
-                <Text fontSize="xl">{resultPercent}% Similar.</Text>
-                <Text fontSize="xl">{result} Different Bits.</Text>
+                <Text fontSize="xl">{resultPercent}% Similiar — There are {result} Different Bits.</Text>
                 <br />
                 <Text fontSize="xl">{resultStr}</Text>
             </React.Fragment>
@@ -149,7 +148,7 @@ const App = () => {
             </VStack>
             <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
-                <ModalContent maxW="container.sm" overflowY="scroll"> 
+                <ModalContent maxW="container.sm"> 
                     <ModalHeader px={4} py={3} fontFamily="inter">Results</ModalHeader>
                     <ModalBody px={4}>
                         {handleResults()}
