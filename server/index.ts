@@ -8,10 +8,6 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 
-app.get("/", (req: any, res: any) => {
-	res.send("Hello, World!");
-});
-
 app.post("/api/upload", (req: any, res: any, next: any) => {
     const form = formidable({ multiples: true });
 

@@ -8,10 +8,10 @@ import { dataToHash, hammDist } from "./utils/perceptualHash";
 import Layout from "./components/Layout";
 import ImageDrop from "./components/ImageDrop";
 import {
-	VStack,
-	HStack,
-	Box,
-	IconButton,
+    VStack,
+    HStack,
+    Box,
+    IconButton,
     Button,
     Text,
     Modal,
@@ -21,9 +21,10 @@ import {
     ModalFooter,
     ModalBody,
     useDisclosure,
-	useToast
+    useToast
 } from "@chakra-ui/react";
 import { BsArrowRightShort } from "react-icons/bs";
+import { AiOutlineClear } from "react-icons/ai";
 
 const App = () => {
     const [currentFiles, setCurrentFiles] = useState<FileWithPath[]>([]);
@@ -143,6 +144,14 @@ const App = () => {
                         colorScheme="blue"
                         icon={<BsArrowRightShort size={26} />}
                         onClick={handleButtonClick}
+                    />
+                    <IconButton
+                        aria-label="Clear"
+                        icon={<AiOutlineClear size={20} />}
+                        onClick={() => {
+                            setCurrentFiles([]);
+                            setHashes([]);
+                        }}
                     />
                 </HStack>
             </VStack>
