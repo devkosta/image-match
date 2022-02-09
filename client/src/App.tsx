@@ -29,7 +29,9 @@ import { AiOutlineClear } from "react-icons/ai";
 const App = () => {
     const [currentFiles, setCurrentFiles] = useState<FileWithPath[]>([]);
     const [hashes, setHashes] = useState<string[]>([]);
+
     const { isOpen, onOpen, onClose } = useDisclosure();
+    
     const toast = useToast();
 
     const importFile = (files: FileWithPath[]) => {
@@ -71,7 +73,7 @@ const App = () => {
                 const formData = new FormData();
                 formData.append("image", currentFiles[i], currentFiles[i].name);
 
-                axios.post("https://devkosta-image-match.herokuapp.com/api/upload", formData)
+                axios.post("http://localhost:5000/api/upload", formData)
                     .then((res) => {
                         setHashes(hashes => [...hashes, dataToHash(res.data.data.data)]);
                     })
@@ -106,15 +108,15 @@ const App = () => {
         else if (result > 5 && result <= 10) {
             resultStr = "These images could be similar.";
         }
-         else if (result > 10 && result <= 16) {
+        else if (result > 10 && result <= 16) {
             resultStr = "These images are likely not the same.";
         }
 
         return (
             <React.Fragment>
-                <Text fontSize="xl">{resultPercent}% Similiar — There are {result} Different Bits.</Text>
+                <Text>{resultPercent}% Similiar — There are {result} Different Bits.</Text>
                 <br />
-                <Text fontSize="xl">{resultStr}</Text>
+                <Text>{resultStr}</Text>
             </React.Fragment>
         );
     };

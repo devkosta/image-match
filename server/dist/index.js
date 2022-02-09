@@ -1,16 +1,11 @@
 "use strict";
-const express = require("express");
-const path = require("path");
+const app = require("express")();
+const http = require("http").createServer(app);
 const cors = require("cors");
 const formidable = require("formidable");
 const sharp = require("sharp");
-const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'build')));
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 app.post("/api/upload", (req, res, next) => {
     const form = formidable({ multiples: true });
     form.parse(req, (err, fields, files) => {
