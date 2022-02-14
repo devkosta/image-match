@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors({
 	credentials: true,
-	origin: ["https://www.kostahassouros.com", "http://localhost:3000"]
+	origin: ["https://kostahassouros.netlify.app", "https://www.kostahassouros.com", "http://localhost:3000"]
 }));
 
 
