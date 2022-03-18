@@ -4,4 +4,4 @@ An application to measure the similarity between two images using TypeScript, Re
 
 ## License
 
-MIT © [DevKosta](https://github.com/DevKosta)
+MIT © [devkosta](https://github.com/devkosta)
